@@ -26,3 +26,12 @@ operator <operator> (position: <pos>): insufficient parameters
 After displaying the warning, all further processing of the string terminates and the current state of the stack is displayed.
 
 
+Usage:
+1. Download the zip file
+2. Open the command prompt 
+3. cd path-to-unzip-file-directory
+4. mvn clean install
+5. mvn package assembly:single
+6. java -jar target/RpnCalculator-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+Note: I am not sure how the position 15 comes from in the Example 8 of the tech-programming-test-rpn-1.1.7.pdf, I assume it is the position of the trouble operator in order of input from user. I program it at this way. Please take note at this.
