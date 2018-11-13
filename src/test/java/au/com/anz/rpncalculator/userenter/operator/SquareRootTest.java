@@ -1,8 +1,9 @@
 package au.com.anz.rpncalculator.userenter.operator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -81,9 +82,25 @@ public class SquareRootTest {
 		//When the getOperaitonRecord method called
 		OperationRecord record = this.testInstance.getOperationRecord(new BigDecimal(6));
 		//Then an OperationRecord object should return
-		assertNotNull(record);
-		assertTrue(1 ==  record.getParameters().size());
-		assertEquals(this.testInstance, record.getOperator());
-		assertEquals(new BigDecimal(6), record.getParameters().get(0));
+		assertThat(record, is(notNullValue()));
+		assertThat(record.getParameters().size(), is(equalTo(1)));
+		assertThat(this.testInstance, is(equalTo(record.getOperator())));
+		assertThat(record.getParameters().get(0), is(equalTo(new BigDecimal(6))));
+	}
+	
+	/**
+	 * Given the testInstance
+	 * When the getEmptyStackErrorMessage method called
+	 * Then the correct error message should return
+	 */
+	@Test
+	public void shouldReturnCorrectErrorMessage() {
+		//Given
+		int counter = 1;
+		//When
+		String message = this.testInstance.getEmptyStackErrorMessage(counter);
+		//Then
+		assertThat(message, is(notNullValue()));
+		assertThat(message, is(equalTo("Operator: sqrt (position: 1): insufficient parameters")));
 	}
 }
