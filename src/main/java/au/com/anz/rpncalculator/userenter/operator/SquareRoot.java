@@ -9,6 +9,7 @@ import org.omg.PortableInterceptor.USER_EXCEPTION;
 import au.com.anz.rpncalculator.history.record.OperationRecord;
 import au.com.anz.rpncalculator.storage.Storage;
 import au.com.anz.rpncalculator.userenter.UserEntry;
+import au.com.anz.rpncalculator.userenter.enums.OperatorsEnum;
 
 public class SquareRoot implements UserEntry, USER_EXCEPTION {
 
@@ -31,6 +32,19 @@ public class SquareRoot implements UserEntry, USER_EXCEPTION {
 	protected OperationRecord getOperationRecord(BigDecimal digit) {
 		List<BigDecimal> params = Arrays.asList(digit);
 		return new OperationRecord(params, this);
+	}
+
+	@Override
+	public String getEmptyStackErrorMessage(int counter) {
+		StringBuilder buf = new StringBuilder("Operator: ");
+		
+		buf.append(OperatorsEnum.SQUAREROOT.getCode());
+				
+		buf.append(" (position: ");
+		buf.append(counter);
+		buf.append("): insufficient parameters");
+		
+		return buf.toString();
 	}
 
 }

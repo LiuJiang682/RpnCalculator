@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import au.com.anz.rpncalculator.history.record.OperationRecord;
 import au.com.anz.rpncalculator.storage.Storage;
 import au.com.anz.rpncalculator.userenter.UserEntry;
+import au.com.anz.rpncalculator.userenter.enums.OperatorsEnum;
 
 public class Undo implements UserEntry {
 
@@ -45,5 +46,18 @@ public class Undo implements UserEntry {
 	 */
 	static Predicate<UserEntry> isNeedClearUpResult() {
 		return e -> ((null == e) || (!(e instanceof Clear)));
+	}
+
+	@Override
+	public String getEmptyStackErrorMessage(int counter) {
+		StringBuilder buf = new StringBuilder("Operator: ");
+		
+		buf.append(OperatorsEnum.UNDO.getCode());
+				
+		buf.append(" (position: ");
+		buf.append(counter);
+		buf.append("): insufficient parameters");
+		
+		return buf.toString();
 	}
 }

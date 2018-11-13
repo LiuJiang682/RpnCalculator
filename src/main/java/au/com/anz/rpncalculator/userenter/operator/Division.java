@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import au.com.anz.rpncalculator.history.record.OperationRecord;
 import au.com.anz.rpncalculator.storage.Storage;
 import au.com.anz.rpncalculator.userenter.UserEntry;
+import au.com.anz.rpncalculator.userenter.enums.OperatorsEnum;
 
 public class Division extends BiOperator {
 
@@ -22,6 +23,19 @@ public class Division extends BiOperator {
 		storage.pushDigit(total);
 		OperationRecord record = this.getOperationRecord(first, second);
 		storage.pushOperationRecord(record);
+	}
+
+	@Override
+	public String getEmptyStackErrorMessage(int counter) {
+		StringBuilder buf = new StringBuilder("Operator: ");
+		
+		buf.append(OperatorsEnum.DIVISION.getCode());
+				
+		buf.append(" (position: ");
+		buf.append(counter);
+		buf.append("): insufficient parameters");
+		
+		return buf.toString();
 	}
 
 }

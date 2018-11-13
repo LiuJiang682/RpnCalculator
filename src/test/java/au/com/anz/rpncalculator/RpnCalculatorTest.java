@@ -1,8 +1,12 @@
 package au.com.anz.rpncalculator;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -34,6 +38,7 @@ import au.com.anz.rpncalculator.userenter.operator.Undo;
 
 public class RpnCalculatorTest {
 
+	private static final String TEST_MESSAGE = "+ (position: 1 \"): insufficient parameters";
 	private RpnCalculator testInstance;
 	
 	@Before
@@ -224,12 +229,14 @@ public class RpnCalculatorTest {
 	@Test
 	public void whenUserEntryUserEntryProvidedThenPlusSignShouldReturn() {
 		//Given an Object class UserEntry object
-		UserEntry e = PowerMockito.mock(UserEntry.class);
+		UserEntry mockUserEntry = PowerMockito.mock(UserEntry.class);
+		when(mockUserEntry.getEmptyStackErrorMessage(eq(1))).thenReturn(TEST_MESSAGE);
 		int counter = 1;
 		//When the formatErrorMessage method called
-		String message = testInstance.formatErrorMessage(e, counter);
+		String message = testInstance.formatErrorMessage(mockUserEntry, counter);
 		//Then the message should contains "+"
 		assertNotNull(message);
+		assertThat(message, equalTo(TEST_MESSAGE));
 	}
 	
 	/**

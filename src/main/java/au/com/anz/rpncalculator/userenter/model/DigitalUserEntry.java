@@ -30,4 +30,9 @@ public class DigitalUserEntry implements UserEntry {
 		};
 	}
 
+	@Override
+	public String getEmptyStackErrorMessage(int counter) {
+		return "";
+	}
+
 }

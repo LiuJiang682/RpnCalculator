@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 
 import au.com.anz.rpncalculator.userenter.UserEnter;
 import au.com.anz.rpncalculator.userenter.UserEntry;
@@ -16,8 +15,6 @@ import au.com.anz.rpncalculator.userenter.model.DigitalUserEntry;
 
 public class DefaultUserEnterFactory implements UserEnter {
 
-	private static final Logger LOGGER = Logger.getLogger(DefaultUserEnterFactory.class);
-	
 	private static final String CTRL_C = "\u0003";
 	private static final String REGEX_DIGIT_PATTERN = "^-*\\d+$";
 
@@ -73,7 +70,7 @@ public class DefaultUserEnterFactory implements UserEnter {
 			userEntry = OperatorFactory.getOperator(userEntered);
 		}
 		catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return userEntry;
 	}
@@ -85,7 +82,7 @@ public class DefaultUserEnterFactory implements UserEnter {
 			userEntry = Optional.of(new DigitalUserEntry(userEntered));
 		}
 		catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			e.printStackTrace();
 		}
 		return userEntry;
 	}

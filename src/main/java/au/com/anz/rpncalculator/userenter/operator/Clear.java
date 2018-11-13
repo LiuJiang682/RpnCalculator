@@ -13,6 +13,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import au.com.anz.rpncalculator.history.record.OperationRecord;
 import au.com.anz.rpncalculator.storage.Storage;
 import au.com.anz.rpncalculator.userenter.UserEntry;
+import au.com.anz.rpncalculator.userenter.enums.OperatorsEnum;
 
 public class Clear implements UserEntry {
 
@@ -40,6 +41,19 @@ public class Clear implements UserEntry {
 			return Optional.of(new OperationRecord(elements, this));
 		}
 		return Optional.empty();
+	}
+
+	@Override
+	public String getEmptyStackErrorMessage(int counter) {
+		StringBuilder buf = new StringBuilder("Operator: ");
+		
+		buf.append(OperatorsEnum.CLEAR.getCode());
+				
+		buf.append(" (position: ");
+		buf.append(counter);
+		buf.append("): insufficient parameters");
+		
+		return buf.toString();
 	}
 
 }
